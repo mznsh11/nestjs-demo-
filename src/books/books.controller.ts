@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post, Body, Delete, Patch} from '@nestjs/common';
+import { Controller, Get, Param, Post, Body, Delete, Patch, Query} from '@nestjs/common';
 
 
 import { BooksService } from './books.service';
@@ -9,8 +9,8 @@ export class BooksController {
 
   // TODO: Implement book controller methods
   @Get()
-  findAll() {
-    return this.booksService.findAll();
+  findAll(@Query('includeAuthor') includeAuthor: string) {
+    return this.booksService.findAll( includeAuthor === 'true');
   }
 
   @Get(':id')
