@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post, Body, Delete, Patch } from '@nestjs/common';
+import { Controller, Get, Param, Post, Body, Delete, Patch, ParseIntPipe } from '@nestjs/common';
 import { PublishersService } from './publishers.service';
 
 @Controller('publishers')
@@ -11,8 +11,8 @@ export class PublishersController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.publishersService.findOne(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.publishersService.findOne(id);
   }
 
   @Post()
@@ -22,14 +22,14 @@ export class PublishersController {
 
   @Patch(':id')
   update(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body() publisherUpdate: { name?: string },
   ) {
-    return this.publishersService.update(+id, publisherUpdate);
+    return this.publishersService.update(id, publisherUpdate);
   }
 
   @Delete(':id')
-  delete(@Param('id') id: string) {
-    return this.publishersService.delete(+id);
+  delete(@Param('id', ParseIntPipe) id: number) {
+    return this.publishersService.delete(id);
   }
 }
