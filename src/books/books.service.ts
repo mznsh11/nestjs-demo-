@@ -1,26 +1,29 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { AuthorsService } from '../authors/authors.service';
 
+
 @Injectable()
 export class BooksService {
   private books = [
     {
       id: 1,
       title: 'Book1',
-      authorId: 1
+      authorId: 1,
+      publisherId: 1
     },
     {
       id: 2,
       title: 'Book2',
-      authorId: 2
+      authorId: 2,
+      publisherId: 2
     },
     {
       id: 3,
       title: 'Book3',
-      authorId: 3
+      authorId: 3,
+      publisherId: 3
     }  
   ];
-
 
   constructor(private readonly authorsService: AuthorsService) {}
 
@@ -36,7 +39,7 @@ export class BooksService {
     return book;
   }
 
-  create(book: { title: string; authorId: number }) {
+  create(book: { title: string; authorId: number; publisherId: number }) {
     const newBook = {
       id: 
         this.books.length > 0 ? this.books[this.books.length - 1].id + 1 : 1,
@@ -46,7 +49,7 @@ export class BooksService {
     return newBook;
   }
 
-  update(id: number, book: { title?: string; authorId?: number }) {
+  update(id: number, book: { title?: string; authorId?: number; publisherId?: number }) {
     const bookIndex = this.books.findIndex(book => book.id === id);
     if (bookIndex === -1) {
       throw new NotFoundException(`Book with id ${id} not found`);
