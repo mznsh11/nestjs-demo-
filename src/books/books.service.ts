@@ -9,19 +9,22 @@ export class BooksService {
       id: 1,
       title: 'Book1',
       authorId: 1,
-      publisherId: 1
+      publisherId: 1,
+      genreIds: [1, 2]
     },
     {
       id: 2,
       title: 'Book2',
       authorId: 2,
-      publisherId: 2
+      publisherId: 2,
+      genreIds: [2, 3]
     },
     {
       id: 3,
       title: 'Book3',
       authorId: 3,
-      publisherId: 3
+      publisherId: 3,
+      genreIds: [1, 4]
     }  
   ];
 
@@ -39,7 +42,7 @@ export class BooksService {
     return book;
   }
 
-  create(book: { title: string; authorId: number; publisherId: number }) {
+  create(book: { title: string; authorId: number; publisherId: number; genreIds: number[] }) {
     const newBook = {
       id: 
         this.books.length > 0 ? this.books[this.books.length - 1].id + 1 : 1,
@@ -49,7 +52,7 @@ export class BooksService {
     return newBook;
   }
 
-  update(id: number, book: { title?: string; authorId?: number; publisherId?: number }) {
+  update(id: number, book: { title?: string; authorId?: number; publisherId?: number; genreIds?: number[] }) {
     const bookIndex = this.books.findIndex(book => book.id === id);
     if (bookIndex === -1) {
       throw new NotFoundException(`Book with id ${id} not found`);
